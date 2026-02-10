@@ -61,8 +61,17 @@ public class PaperLib {
 ```
 
 Allows you to optionally avoid taking a snapshot of a TileEntity in a BlockState. Versions prior to 1.12 will always be
-false for the snapshot. In versions 1.12+ on Spigot, the snapshot will always be true. In Paper 1.12+, the snapshot will
+false for the snapshot. In versions 1.13+ on Spigot, the snapshot will always be true. In Paper 1.12+, the snapshot will
 be whether or not you requested one in the API call.
+
+### isSolid
+```java
+public class PaperLib {
+  public static boolean isSolid(Block block);
+}
+```
+Checks if a block is considered solid. On Paper 1.16.4+ this uses Block#isSolid, otherwise it falls back to
+Material#isSolid.
 
 ### suggestPaper
 ```java

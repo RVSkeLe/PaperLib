@@ -13,6 +13,8 @@ import com.github.rvskele.paperlib.features.blockstatesnapshot.BlockStateSnapsho
 import com.github.rvskele.paperlib.features.chunkisgenerated.ChunkIsGenerated;
 import com.github.rvskele.paperlib.features.chunkisgenerated.ChunkIsGeneratedApiExists;
 import com.github.rvskele.paperlib.features.chunkisgenerated.ChunkIsGeneratedUnknown;
+import com.github.rvskele.paperlib.features.issolid.IsSolid;
+import com.github.rvskele.paperlib.features.issolid.IsSolidMaterial;
 import java.util.Locale;
 
 import com.github.rvskele.paperlib.features.inventoryholdersnapshot.InventoryHolderSnapshot;
@@ -53,6 +55,7 @@ public abstract class Environment {
     protected InventoryHolderSnapshot inventoryHolderSnapshotHandler;
     protected TileEntitiesSnapshot tileEntitiesSnapshotHandler;
     protected BedSpawnLocation bedSpawnLocationHandler = new BedSpawnLocationSync();
+    protected IsSolid isSolidHandler = new IsSolidMaterial();
 
     public Environment() {
         this(Bukkit.getVersion());
@@ -148,6 +151,10 @@ public abstract class Environment {
 
     public TileEntitiesSnapshotResult getTileEntities(Chunk chunk, boolean useSnapshot) {
         return tileEntitiesSnapshotHandler.getTileEntities(chunk, useSnapshot);
+    }
+
+    public boolean isSolid(Block block) {
+        return isSolidHandler.isSolid(block);
     }
 
     public CompletableFuture<Location> getBedSpawnLocationAsync(Player player, boolean isUrgent) {

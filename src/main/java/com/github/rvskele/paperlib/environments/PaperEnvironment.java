@@ -9,6 +9,7 @@ import com.github.rvskele.paperlib.features.bedspawnlocation.BedSpawnLocationPap
 import com.github.rvskele.paperlib.features.blockstatesnapshot.BlockStateSnapshotOptionalSnapshots;
 import com.github.rvskele.paperlib.features.chunkisgenerated.ChunkIsGeneratedApiExists;
 import com.github.rvskele.paperlib.features.inventoryholdersnapshot.InventoryHolderSnapshotOptionalSnapshots;
+import com.github.rvskele.paperlib.features.issolid.IsSolidBlock;
 import com.github.rvskele.paperlib.features.tileentitiessnapshot.TileEntitiesSnapshotOptionalSnapshots;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -47,6 +48,9 @@ public class PaperEnvironment extends SpigotEnvironment {
         }
         if (isVersion(16)) {
             inventoryHolderSnapshotHandler = new InventoryHolderSnapshotOptionalSnapshots();
+        }
+        if (isVersion(16, 4)) {
+            isSolidHandler = new IsSolidBlock();
         }
     }
 

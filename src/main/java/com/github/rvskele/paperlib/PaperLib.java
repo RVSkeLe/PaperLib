@@ -224,6 +224,15 @@ public class PaperLib {
     }
 
     /**
+     * Checks if a block is solid. On Paper 1.16.4+ this uses Block#isSolid, otherwise it falls back to Material#isSolid.
+     * @param block The block to check
+     * @return If the block is solid
+     */
+    public static boolean isSolid(@Nonnull Block block) {
+        return ENVIRONMENT.isSolid(block);
+    }
+
+    /**
      * Gets the location where the target player will spawn at their bed, asynchronously if needed
      * @param player   The player whose bed spawn location to get.
      * @param isUrgent Whether or not this should be performed with highest priority when supported
