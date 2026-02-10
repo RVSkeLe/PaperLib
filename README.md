@@ -121,7 +121,7 @@ repositories {
 Dependency:
 ```groovy
 dependencies {
-    implementation "com.github.RVSkeLe:PaperLib:1.1.0"
+    implementation "com.github.RVSkeLe:PaperLib:1.1.1"
 }
 ```
 
@@ -152,7 +152,7 @@ Dependency:
     <dependency>
         <groupId>com.github.rvskele</groupId>
         <artifactId>PaperLib</artifactId>
-        <version>1.1.0</version>
+        <version>1.1.1</version>
         <scope>compile</scope>
      </dependency>
  </dependencies>
