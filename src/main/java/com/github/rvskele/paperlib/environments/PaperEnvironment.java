@@ -9,6 +9,7 @@ import com.github.rvskele.paperlib.features.bedspawnlocation.BedSpawnLocationPap
 import com.github.rvskele.paperlib.features.blockstatesnapshot.BlockStateSnapshotOptionalSnapshots;
 import com.github.rvskele.paperlib.features.chunkisgenerated.ChunkIsGeneratedApiExists;
 import com.github.rvskele.paperlib.features.inventoryholdersnapshot.InventoryHolderSnapshotOptionalSnapshots;
+import com.github.rvskele.paperlib.features.tileentitiessnapshot.TileEntitiesSnapshotOptionalSnapshots;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.HumanEntity;
@@ -30,6 +31,11 @@ public class PaperEnvironment extends SpigotEnvironment {
             isGeneratedHandler = new ChunkIsGeneratedApiExists();
             blockStateSnapshotHandler = new BlockStateSnapshotOptionalSnapshots();
         }
+
+        if (isVersion(13)) {
+            tileEntitiesSnapshotHandler = new TileEntitiesSnapshotOptionalSnapshots();
+        }
+
         if (isVersion(15, 2)) {
             try {
                 // Try for new Urgent API in 1.15.2+, Teleport will automatically benefit from this

@@ -19,6 +19,10 @@ import com.github.rvskele.paperlib.features.inventoryholdersnapshot.InventoryHol
 import com.github.rvskele.paperlib.features.inventoryholdersnapshot.InventoryHolderSnapshotBeforeSnapshots;
 import com.github.rvskele.paperlib.features.inventoryholdersnapshot.InventoryHolderSnapshotNoOption;
 import com.github.rvskele.paperlib.features.inventoryholdersnapshot.InventoryHolderSnapshotResult;
+import com.github.rvskele.paperlib.features.tileentitiessnapshot.TileEntitiesSnapshot;
+import com.github.rvskele.paperlib.features.tileentitiessnapshot.TileEntitiesSnapshotBeforeSnapshots;
+import com.github.rvskele.paperlib.features.tileentitiessnapshot.TileEntitiesSnapshotNoOption;
+import com.github.rvskele.paperlib.features.tileentitiessnapshot.TileEntitiesSnapshotResult;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -47,6 +51,7 @@ public abstract class Environment {
     protected ChunkIsGenerated isGeneratedHandler = new ChunkIsGeneratedUnknown();
     protected BlockStateSnapshot blockStateSnapshotHandler;
     protected InventoryHolderSnapshot inventoryHolderSnapshotHandler;
+    protected TileEntitiesSnapshot tileEntitiesSnapshotHandler;
     protected BedSpawnLocation bedSpawnLocationHandler = new BedSpawnLocationSync();
 
     public Environment() {
@@ -102,6 +107,13 @@ public abstract class Environment {
             blockStateSnapshotHandler = new BlockStateSnapshotNoOption();
             inventoryHolderSnapshotHandler = new InventoryHolderSnapshotNoOption();
         }
+
+        // https://jd.papermc.io/paper/1.13.0/org/bukkit/Chunk.html#getTileEntities(boolean)
+        if(!isVersion(13)) {
+            tileEntitiesSnapshotHandler = new TileEntitiesSnapshotBeforeSnapshots();
+        } else {
+            tileEntitiesSnapshotHandler = new TileEntitiesSnapshotNoOption();
+        }
     }
 
     public abstract String getName();
@@ -132,6 +144,10 @@ public abstract class Environment {
 
     public InventoryHolderSnapshotResult getHolder(Inventory inventory, boolean useSnapshot) {
         return inventoryHolderSnapshotHandler.getHolder(inventory, useSnapshot);
+    }
+
+    public TileEntitiesSnapshotResult getTileEntities(Chunk chunk, boolean useSnapshot) {
+        return tileEntitiesSnapshotHandler.getTileEntities(chunk, useSnapshot);
     }
 
     public CompletableFuture<Location> getBedSpawnLocationAsync(Player player, boolean isUrgent) {

@@ -6,6 +6,7 @@ import com.github.rvskele.paperlib.environments.PaperEnvironment;
 import com.github.rvskele.paperlib.environments.SpigotEnvironment;
 import com.github.rvskele.paperlib.features.blockstatesnapshot.BlockStateSnapshotResult;
 import com.github.rvskele.paperlib.features.inventoryholdersnapshot.InventoryHolderSnapshotResult;
+import com.github.rvskele.paperlib.features.tileentitiessnapshot.TileEntitiesSnapshotResult;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -208,6 +209,18 @@ public class PaperLib {
     @Nonnull
     public static InventoryHolderSnapshotResult getHolder(@Nonnull Inventory inventory, boolean useSnapshot) {
         return ENVIRONMENT.getHolder(inventory, useSnapshot);
+    }
+
+    /**
+     * Gets the tile entities in a chunk, optionally not using snapshots.
+     *
+     * @param chunk The chunk to get tile entities from
+     * @param useSnapshot Whether to use snapshots when supported
+     * @return The tile entities
+     */
+    @Nonnull
+    public static TileEntitiesSnapshotResult getTileEntities(@Nonnull Chunk chunk, boolean useSnapshot) {
+        return ENVIRONMENT.getTileEntities(chunk, useSnapshot);
     }
 
     /**
