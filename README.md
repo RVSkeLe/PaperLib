@@ -53,6 +53,17 @@ Allows you to optionally avoid taking a snapshot of a TileEntity in a BlockState
 false for the snapshot. In versions 1.12+ on Spigot, the snapshot will always be true. In Paper 1.12+, the snapshot will
 be whether or not you requested one in the API call.
 
+### getTileEntities
+```java
+public class PaperLib {
+  public static TileEntitiesSnapshotResult getTileEntities(Chunk chunk, boolean useSnapshot);
+}
+```
+
+Allows you to optionally avoid taking a snapshot of a TileEntity in a BlockState. Versions prior to 1.12 will always be
+false for the snapshot. In versions 1.12+ on Spigot, the snapshot will always be true. In Paper 1.12+, the snapshot will
+be whether or not you requested one in the API call.
+
 ### suggestPaper
 ```java
 public class PaperLib {
@@ -92,8 +103,8 @@ Repo:
 ```groovy
 repositories {
     maven {
-        name "papermc"
-        url "https://papermc.io/repo/repository/maven-public/"
+        name "jitpack.io"
+        url "https://jitpack.io"
     }
 }
 ```
@@ -101,18 +112,18 @@ repositories {
 Dependency:
 ```groovy
 dependencies {
-    implementation "io.papermc:paperlib:1.0.7"
+    implementation "com.github.RVSkeLe:PaperLib:1.1.0"
 }
 ```
 
 Shadow Jar and Relocate (Groovy Syntax):
 ```groovy
 plugins {
-  id "com.github.johnrengelman.shadow" version "7.1.0"
+  id "com.github.johnrengelman.shadow" version "9.3.1"
   // Make sure to always use the latest version (https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
 }
 shadowJar {
-   relocate "io.papermc.lib", "[YOUR PLUGIN PACKAGE].paperlib"
+   relocate "com.github.rvsksle.paperlib", "[YOUR PLUGIN PACKAGE].paperlib"
 }
 ```
 
@@ -121,8 +132,8 @@ Repo:
 ```xml
 <repositories>
     <repository>
-        <id>papermc</id>
-        <url>https://papermc.io/repo/repository/maven-public/</url>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
     </repository>
 </repositories>
 ```
@@ -130,9 +141,9 @@ Dependency:
 ```xml
 <dependencies>
     <dependency>
-        <groupId>io.papermc</groupId>
-        <artifactId>paperlib</artifactId>
-        <version>1.0.7</version>
+        <groupId>com.github.rvskele</groupId>
+        <artifactId>PaperLib</artifactId>
+        <version>1.1.0</version>
         <scope>compile</scope>
      </dependency>
  </dependencies>
@@ -145,12 +156,12 @@ Shade & Relocate:
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
-            <version>3.2.4</version> <!-- Make sure to always use the latest version (https://maven.apache.org/plugins/maven-shade-plugin/) -->
+            <version>3.6.1</version> <!-- Make sure to always use the latest version (https://maven.apache.org/plugins/maven-shade-plugin/) -->
             <configuration>
                 <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
                 <relocations>
                     <relocation>
-                        <pattern>io.papermc.lib</pattern>
+                        <pattern>com.github.rvskele.paperlib</pattern>
                         <shadedPattern>[YOUR PLUGIN PACKAGE].paperlib</shadedPattern> <!-- Replace this -->
                     </relocation>
                 </relocations>
