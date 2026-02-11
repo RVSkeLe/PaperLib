@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.rvskele"
-version = "1.1.1"
+version = "2.0.0"
 
 val mcVersion = "1.17.1-R0.1-SNAPSHOT"
 
@@ -51,7 +51,7 @@ tasks.compileTestJava {
 }
 
 mavenPublishing {
-    coordinates("io.github.rvskele", "PaperLib", "1.1.1")
+    coordinates("io.github.rvskele", "PaperLib", "2.0.0")
 
     pom {
         name.set("PaperLib")
