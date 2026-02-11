@@ -60,8 +60,8 @@ public class PaperLib {
 }
 ```
 
-Allows you to optionally avoid taking a snapshot of a TileEntity in a BlockState. Versions prior to 1.12 will always be
-false for the snapshot. In versions 1.13+ on Spigot, the snapshot will always be true. In Paper 1.12+, the snapshot will
+Allows you to optionally avoid taking a snapshot of a TileEntity in a BlockState. Versions prior to 1.13 will always be
+false for the snapshot. In versions 1.13+ on Spigot, the snapshot will always be true. In Paper 1.13+, the snapshot will
 be whether or not you requested one in the API call.
 
 ### isSolid
@@ -121,7 +121,7 @@ repositories {
 Dependency:
 ```groovy
 dependencies {
-    implementation "com.github.RVSkeLe:PaperLib:1.1.1"
+    implementation "io.github.rvskele:PaperLib:1.1.1"
 }
 ```
 
@@ -150,7 +150,7 @@ Dependency:
 ```xml
 <dependencies>
     <dependency>
-        <groupId>com.github.rvskele</groupId>
+        <groupId>io.github.rvskele</groupId>
         <artifactId>PaperLib</artifactId>
         <version>1.1.1</version>
         <scope>compile</scope>
@@ -170,7 +170,7 @@ Shade & Relocate:
                 <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml</dependencyReducedPomLocation>
                 <relocations>
                     <relocation>
-                        <pattern>com.github.rvskele.paperlib</pattern>
+                        <pattern>io.github.rvskele.paperlib</pattern>
                         <shadedPattern>[YOUR PLUGIN PACKAGE].paperlib</shadedPattern> <!-- Replace this -->
                     </relocation>
                 </relocations>
