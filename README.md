@@ -105,16 +105,14 @@ public class MyPlugin extends JavaPlugin {
 ## Build Script Setup
 Add the Paper repository and the PaperLib dependency, then shade and relocate it to your own package.
 Relocation helps avoid version conflicts with other plugins using PaperLib. 
+PaperLib is published on Maven Central, so no extra repository is needed for it.
 
 ### Gradle
 
 Repo:
 ```groovy
 repositories {
-    maven {
-        name "jitpack.io"
-        url "https://jitpack.io"
-    }
+    mavenCentral()
 }
 ```
 
@@ -138,14 +136,7 @@ shadowJar {
 
 ### Maven
 Repo:
-```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-```
+Maven Central is used by default, no extra repository is needed.
 Dependency:
 ```xml
 <dependencies>
