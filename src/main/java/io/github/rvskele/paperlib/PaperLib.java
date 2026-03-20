@@ -266,19 +266,45 @@ public class PaperLib {
     }
 
     /**
-     * Gets the current Minecraft Minor version. IE: 1.13.1 returns 13
-     * @return The Minor Version
+     * Gets the primary Minecraft version number.
+     *
+     * Examples:
+     * - 1.13.1 -> 13
+     * - 1.21.11 -> 21
+     * - 26.1.2 -> 26
+     *
+     * @return The primary version component
      */
     public static int getMinecraftVersion() {
         return ENVIRONMENT.getMinecraftVersion();
     }
 
     /**
-     * Gets the current Minecraft Patch version. IE: 1.13.1 returns 1
-     * @return The Patch Version
+     * Gets the secondary Minecraft version number.
+     *
+     * Examples:
+     * - 1.13.1 -> 1
+     * - 1.21.11 -> 11
+     * - 26.1.2 -> 1
+     *
+     * @return The secondary version component
      */
     public static int getMinecraftPatchVersion() {
         return ENVIRONMENT.getMinecraftPatchVersion();
+    }
+
+    /**
+     * Gets the hotfix version (third version component).
+     *
+     * Examples:
+     * - 26.1.2 -> 2
+     * - 26.1 -> 0
+     * - 1.21.11 -> -1 (not applicable in the old versioning scheme)
+     *
+     * @return The hotfix version, or -1 if not applicable
+     */
+    public static int getMinecraftHotfixVersion() {
+        return ENVIRONMENT.getMinecraftHotfixVersion();
     }
 
     /**

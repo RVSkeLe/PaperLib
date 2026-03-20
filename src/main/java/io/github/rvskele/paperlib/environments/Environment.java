@@ -36,7 +36,6 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.Inventory;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +44,7 @@ public abstract class Environment {
 
     private final int minecraftVersion;
     private final int minecraftPatchVersion;
+    private final int minecraftHotfixVersion;
     private final int minecraftPreReleaseVersion;
     private final int minecraftReleaseCandidateVersion;
 
@@ -62,40 +62,57 @@ public abstract class Environment {
     }
 
     Environment(final String bukkitVersion) {
-        Pattern versionPattern = Pattern.compile("(?i)\\(MC: (\\d)\\.(\\d+)\\.?(\\d+?)?(?: (Pre-Release|Release Candidate) )?(\\d)?\\)");
+        Pattern versionPattern = Pattern.compile("(?i)\\(MC: (\\d+(?:\\.\\d+){0,2})(?: .*?(Pre-Release|Release Candidate) (\\d+))?.*\\)");
         Matcher matcher = versionPattern.matcher(bukkitVersion);
         int version = 0;
         int patchVersion = 0;
+        int hotfixVersion = 0;
         int preReleaseVersion = -1;
         int releaseCandidateVersion = -1;
         if (matcher.find()) {
-            MatchResult matchResult = matcher.toMatchResult();
             try {
-                version = Integer.parseInt(matchResult.group(2), 10);
+                String[] parts = matcher.group(1).split("\\.");
+
+                if (parts.length >= 2 && "1".equals(parts[0])) {
+                    // Old version numbering: 1.<minor>.<patch>
+                    hotfixVersion = -1;
+                    version = Integer.parseInt(parts[1], 10);
+                    if (parts.length >= 3) {
+                        patchVersion = Integer.parseInt(parts[2], 10);
+                    }
+                } else {
+                    // New version numbering: <major>.<minor>.(<hotfix>)?
+                    version = Integer.parseInt(parts[0], 10);
+                    if (parts.length >= 2) {
+                        patchVersion = Integer.parseInt(parts[1], 10);
+                    }
+                    if (parts.length >= 3) {
+                        hotfixVersion = Integer.parseInt(parts[2], 10);
+                    }
+                }
             } catch (Exception ignored) {
             }
-            if (matchResult.groupCount() >= 3) {
-                try {
-                    patchVersion = Integer.parseInt(matchResult.group(3), 10);
-                } catch (Exception ignored) {
-                }
-            }
-            if (matchResult.groupCount() >= 5) {
-                try {
-                    final int ver = Integer.parseInt(matcher.group(5));
-                    if (matcher.group(4).toLowerCase(Locale.ENGLISH).contains("pre")) {
+
+            try {
+                String label = matcher.group(2);
+                String number = matcher.group(3);
+                if (label != null && number != null) {
+                    int ver = Integer.parseInt(number, 10);
+                    String lower = label.toLowerCase(Locale.ENGLISH);
+                    if (lower.contains("pre")) {
                         preReleaseVersion = ver;
-                    } else {
+                    } else if (lower.contains("candidate")) {
                         releaseCandidateVersion = ver;
                     }
-                } catch (Exception ignored) {
                 }
+            } catch (Exception ignored) {
             }
         }
         this.minecraftVersion = version;
         this.minecraftPatchVersion = patchVersion;
         this.minecraftPreReleaseVersion = preReleaseVersion;
         this.minecraftReleaseCandidateVersion = releaseCandidateVersion;
+        this.minecraftHotfixVersion = hotfixVersion;
 
         // Common to all environments
         if (isVersion(13, 1)) {
@@ -175,6 +192,10 @@ public abstract class Environment {
 
     public int getMinecraftPatchVersion() {
         return minecraftPatchVersion;
+    }
+
+    public int getMinecraftHotfixVersion() {
+        return minecraftHotfixVersion;
     }
 
     public int getMinecraftPreReleaseVersion() {
