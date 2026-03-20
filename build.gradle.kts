@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "io.github.rvskele"
-version = "2.0.0"
+version = "2.1.0"
 
 val mcVersion = "1.21.11-R0.1-SNAPSHOT"
 

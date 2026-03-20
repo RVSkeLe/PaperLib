@@ -1,5 +1,15 @@
 # PaperLib Changelog
 
+## 2.1.0 - Mar 20, 2026
+ * Fixed version detection for Minecraft 1.21.10+ and new versioning format (e.g. 26.x.x)
+ * Updated documentation for version methods
+ * Added getMinecraftHotfixVersion() for third version component
+
+## 2.0.0 - Feb 11, 2026
+ * Renamed package name to `io.github.rvskele.paperlib`
+ * Updated dependencies
+ * Added isBlock, getTileEntities
+
 ## 1.0.8 - Dec 31, 2022
  * Improved version detection for RCs and future versions of paper
  * Add support for obtaining an InventoryHolder without a snapshot
